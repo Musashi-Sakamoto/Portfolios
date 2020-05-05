@@ -1,47 +1,22 @@
 import * as React from 'react';
-import PortfolioList, { PortfolioData } from './PortfolioList';
+import PortfolioList from './PortfolioList';
+import Portfolio from '../../interfaces/Portfolio';
 
 export default {
   title: 'PortfolioList',
 };
 
-const portfolios: PortfolioData[] = [
-  {
+const portfolios: Portfolio[] = Array(10)
+  .fill('')
+  .map((_, i) => ({
+    id: i.toString(),
     siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user1',
-    userProfession: 'Software Engineer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-  {
-    siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user2',
-    userProfession: 'Hardware Engineer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-  {
-    siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user3',
-    userProfession: 'Designer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-  {
-    siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user1',
-    userProfession: 'Software Engineer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-  {
-    siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user2',
-    userProfession: 'Hardware Engineer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-  {
-    siteImageUrl: 'https://via.placeholder.com/180',
-    userName: 'user3',
-    userProfession: 'Designer',
-    portfolioSiteUrl: 'https://material-ui.com/',
-  },
-];
+    user: {
+      name: `user${i}`,
+      profession: i % 3 === 0 ? 'Software Engineer'
+       : i % 2 === 0 ? 'Designer' : 'Hardware Engineer',
+    },
+    portfolioSite: 'https://material-ui.com/',
+  }));
 export const list = () => <PortfolioList portfolios={portfolios} />;
 export const nodata = () => <PortfolioList portfolios={[]} />;

@@ -3,11 +3,12 @@ import Layout from '../components/Layout';
 import useSWR from 'swr';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import PortfolioList, { PortfolioData } from '../components/PortfolioList/PortfolioList';
+import PortfolioList from '../components/PortfolioList/PortfolioList';
 import { Box } from '@material-ui/core';
+import Portfolio from '../interfaces/Portfolio';
 
 type IndexProps = {
-  portfolios: PortfolioData[],
+  portfolios: Portfolio[],
 };
 
 const IndexPage = ({ portfolios }: IndexProps) => {
