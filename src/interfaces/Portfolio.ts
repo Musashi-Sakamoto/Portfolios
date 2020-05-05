@@ -6,6 +6,6 @@ type Portfolio = {
   profession: string;
   portfolioSite: string;
   imageUrl: string;
-}
+};
 
 export default Portfolio;

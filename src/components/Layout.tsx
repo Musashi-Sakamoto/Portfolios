@@ -1,23 +1,23 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
+import * as React from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import { AppBar, Button, makeStyles, Toolbar, Typography, Box, Container } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 type Props = {
-  title?: string
-}
+  title?: string,
+};
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
@@ -79,6 +79,6 @@ const Layout: React.FunctionComponent<Props> = ({
       </footer>
     </div>
   );
-}
+};
 
-export default Layout
+export default Layout;
