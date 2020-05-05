@@ -6,15 +6,19 @@ import {
   FormGroup,
   TextField,
   Typography,
+  Fab,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { array, object, string } from 'yup';
 import Work from '../../interfaces/Work';
 
+type WorkInput = Pick<Work, 'title' | 'siteUrl'>;
+
 export interface IProps {
   portfolioSite: string;
-  works?: Pick<Work, 'title' | 'siteUrl'>[];
+  works?: WorkInput[];
 }
 
 const initialValues: IProps = {
@@ -23,6 +27,7 @@ const initialValues: IProps = {
 };
 
 export default function FormDemo() {
+  const [works, setWorks] = useState<WorkInput[]>([]);
   return (
     <Card>
       <CardContent>
@@ -54,6 +59,22 @@ export default function FormDemo() {
                 </FormGroup>
               </Box>
 
+              <Box marginBottom={2}>
+                <Fab color="secondary" aria-label="add" onClick={() => {
+                  const work: WorkInput = {
+                    siteUrl: '',
+                    title: '',
+                  };
+                  setWorks([...works, work]);
+                }}>
+                  <AddIcon />
+                </Fab>
+              </Box>
+
+              {works.map((_, i) => (
+                <div key={i}>{i}</div>
+              ))}
+
               <Button type="submit" disabled={isSubmitting || isValidating}>
                 Submit
               </Button>
@@ -64,6 +85,6 @@ export default function FormDemo() {
           )}
         </Formik>
       </CardContent>
-    </Card>
+    </Card >
   );
 }
