@@ -5,6 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 
 import Layout from '../../components/Layout';
 import Portfolio from '../../interfaces/Portfolio';
+import PortfolioDetail from '../../components/PortfolioDetail/PortfolioDetail';
 
 axios.defaults.baseURL = 'http://localhost:4001';
 
@@ -33,7 +34,7 @@ export default class StaticPropsDetail extends React.Component<Props> {
           portfolio ? portfolio.portfolioSite : 'User Detail'
         } | Next.js + TypeScript Example`}
       >
-        {portfolio && <pre>{JSON.stringify(portfolio, null, 4)}</pre>}
+        {portfolio && <PortfolioDetail portfolio={portfolio} />}
       </Layout>
     );
   }

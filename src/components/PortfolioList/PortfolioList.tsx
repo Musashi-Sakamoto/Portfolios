@@ -21,7 +21,7 @@ export type Props = {
   portfolios?: Portfolio[],
 };
 
-const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }: Props) => {
+const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }) => {
   const classes = useStyles();
   return (
     <GridList cols={3} cellHeight={180} className={classes.gridList}>

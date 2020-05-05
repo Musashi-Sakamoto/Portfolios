@@ -4,7 +4,6 @@ import useSWR from 'swr';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import PortfolioList from '../components/PortfolioList/PortfolioList';
-import { Box } from '@material-ui/core';
 import Portfolio from '../interfaces/Portfolio';
 
 type IndexProps = {
@@ -15,15 +14,13 @@ const IndexPage = ({ portfolios }: IndexProps) => {
   const { data } = useSWR('/portfolios', { initialData: portfolios });
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <Box width={800} marginRight="auto" marginLeft="auto">
-        <h1>Hello Next.js 👋</h1>
-        <PortfolioList portfolios={data} />
-        <p>
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </p>
-      </Box>
+      <h1>Hello Next.js 👋</h1>
+      <PortfolioList portfolios={data} />
+      <p>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+      </p>
     </Layout>
   );
 };
