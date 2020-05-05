@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import GridList from '@material-ui/core/GridList';
 
-const useStyles = makeStyles((_) => ({
+const useStyles = makeStyles(_ => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
@@ -20,11 +20,11 @@ export type PortfolioData = {
   userName: string;
   userProfession: string;
   siteImageUrl: string;
-}
+};
 
 export type Props = {
-  portfolios?: PortfolioData[]
-}
+  portfolios?: PortfolioData[],
+};
 
 const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }: Props) => {
   const classes = useStyles();
@@ -45,7 +45,7 @@ const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }: Props) =>
         </GridListTile>
       ))}
     </GridList>
-  )
-}
+  );
+};
 
 export default PortfolioList;

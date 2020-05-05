@@ -7,7 +7,8 @@
     "start": "next start",
     "type-check": "tsc",
     "storybook": "start-storybook -p 6006",
-    "mock-server": "json-server --watch ./db.json -p 4001"
+    "mock-server": "json-server --watch ./db.json -p 4001",
+    "lint": "tslint -p . -c tslint.json --fix"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.13",
@@ -28,7 +29,18 @@
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
     "json-server": "^0.16.1",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-react": "^5.0.0",
+    "tslint-react-hooks": "^2.2.2",
     "typescript": "3.7.3"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 120,
+    "tabWidth": 2
+  }
 }
