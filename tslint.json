@@ -5,6 +5,8 @@
     "import-name": false,
     "react-hooks-nesting": true,
     "align": false,
+    "jsx-no-lambda": false,
+    "no-console": false,
     "function-name": [
       true,
       {
