@@ -1,19 +1,21 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
-import { User } from '../../interfaces';
-import { sampleUserData } from '../../utils/sample-data';
+import axios, { AxiosResponse } from 'axios';
+
 import Layout from '../../components/Layout';
-import ListDetail from '../../components/ListDetail';
+import Portfolio from '../../interfaces/Portfolio';
+
+axios.defaults.baseURL = 'http://localhost:4001';
 
 type Props = {
-  item?: User
+  portfolio?: Portfolio
   errors?: string,
 };
 
 export default class StaticPropsDetail extends React.Component<Props> {
   render() {
-    const { item, errors } = this.props;
+    const { portfolio, errors } = this.props;
 
     if (errors) {
       return (
@@ -28,10 +30,10 @@ export default class StaticPropsDetail extends React.Component<Props> {
     return (
       <Layout
         title={`${
-          item ? item.name : 'User Detail'
+          portfolio ? portfolio.portfolioSite : 'User Detail'
         } | Next.js + TypeScript Example`}
       >
-        {item && <ListDetail item={item} />}
+        {portfolio && <pre>{JSON.stringify(portfolio, null, 4)}</pre>}
       </Layout>
     );
   }
@@ -39,8 +41,9 @@ export default class StaticPropsDetail extends React.Component<Props> {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get the paths we want to pre-render based on users
-  const paths = sampleUserData.map(user => ({
-    params: { id: user.id.toString() },
+  const res: AxiosResponse<Portfolio[]> = await axios.get('/portfolios');
+  const paths = res.data.map(portfolio => ({
+    params: { pid: portfolio.id.toString() },
   }));
 
   // We'll pre-render only these paths at build time.
@@ -53,11 +56,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // direct database queries.
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
-    const id = params?.id;
-    const item = sampleUserData.find(data => data.id === Number(id));
+    const id = params?.pid;
+    const res: AxiosResponse<Portfolio> = await axios.get(`/portfolios/${id}`);
     // By returning { props: item }, the StaticPropsDetail component
     // will receive `item` as a prop at build time
-    return { props: { item } };
+    return { props: { portfolio: res.data } };
   } catch (err) {
     return { props: { errors: err.message } };
   }

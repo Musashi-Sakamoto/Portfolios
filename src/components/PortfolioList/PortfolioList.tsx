@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import GridList from '@material-ui/core/GridList';
 import Portfolio from '../../interfaces/Portfolio';
+import Link from 'next/link';
 
 const useStyles = makeStyles(_ => ({
   icon: {
@@ -32,7 +33,11 @@ const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }: Props) =>
             subtitle={portfolio.user.profession}
             actionIcon={
               <IconButton aria-label={portfolio.portfolioSite} className={classes.icon}>
-                <InfoIcon />
+                <Link href="/portfolio/[pid]" as={`/portfolio/${portfolio.id}`}>
+                  <a style={{ color: 'white' }}>
+                    <InfoIcon />
+                  </a>
+                </Link>
               </IconButton>
             }
           />

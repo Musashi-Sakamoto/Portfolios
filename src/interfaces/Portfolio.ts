@@ -4,7 +4,7 @@ type Portfolio = {
   id: string;
   portfolioSite: string;
   siteImageUrl: string;
-  user: Pick<User, 'name' | 'profession'>;
+  user: Partial<User>;
 };
 
 export default Portfolio;
