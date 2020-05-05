@@ -5,6 +5,8 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import GridList from '@material-ui/core/GridList';
+import Portfolio from '../../interfaces/Portfolio';
+import Link from 'next/link';
 
 const useStyles = makeStyles(_ => ({
   icon: {
@@ -15,30 +17,27 @@ const useStyles = makeStyles(_ => ({
   },
 }));
 
-export type PortfolioData = {
-  portfolioSiteUrl: string;
-  userName: string;
-  userProfession: string;
-  siteImageUrl: string;
-};
-
 export type Props = {
-  portfolios?: PortfolioData[],
+  portfolios?: Portfolio[],
 };
 
-const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }: Props) => {
+const PortfolioList: React.FunctionComponent<Props> = ({ portfolios }) => {
   const classes = useStyles();
   return (
     <GridList cols={3} cellHeight={180} className={classes.gridList}>
-      {portfolios?.map((portfolio, i) => (
-        <GridListTile key={i}>
-          <img src={portfolio.siteImageUrl} alt={portfolio.userName} />
+      {portfolios?.map(portfolio => (
+        <GridListTile key={portfolio.id}>
+          <img src={portfolio.siteImageUrl} alt={portfolio.user.name} />
           <GridListTileBar
-            title={portfolio.userName}
-            subtitle={portfolio.userProfession}
+            title={portfolio.user.name}
+            subtitle={portfolio.user.profession}
             actionIcon={
-              <IconButton aria-label={portfolio.portfolioSiteUrl} className={classes.icon}>
-                <InfoIcon />
+              <IconButton aria-label={portfolio.portfolioSite} className={classes.icon}>
+                <Link href="/portfolio/[pid]" as={`/portfolio/${portfolio.id}`}>
+                  <a style={{ color: 'white' }}>
+                    <InfoIcon />
+                  </a>
+                </Link>
               </IconButton>
             }
           />

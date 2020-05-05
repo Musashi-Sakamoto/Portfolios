@@ -40,9 +40,7 @@ const Layout: React.FunctionComponent<Props> = ({
           <Button color="inherit">
             <Link href="/">
               <a style={{ color: 'white' }}>
-                <Typography  color="inherit">
-                  Home
-                </Typography>
+                <Typography color="inherit">Home</Typography>
               </a>
             </Link>
           </Button>
@@ -50,9 +48,7 @@ const Layout: React.FunctionComponent<Props> = ({
           <Button color="inherit">
             <Link href="/about">
               <a style={{ color: 'white' }}>
-                <Typography  color="inherit">
-                  About
-                </Typography>
+                <Typography color="inherit">About</Typography>
               </a>
             </Link>
           </Button>
@@ -60,16 +56,14 @@ const Layout: React.FunctionComponent<Props> = ({
           <Button color="inherit">
             <Link href="/users">
               <a style={{ color: 'white' }}>
-                <Typography  color="inherit">
-                  Users
-                </Typography>
+                <Typography color="inherit">Users</Typography>
               </a>
             </Link>
           </Button>
         </Toolbar>
       </AppBar>
       <Container maxWidth={false}>
-        <Box marginTop={8}>
+        <Box marginTop={8} width={800} marginRight="auto" marginLeft="auto">
           {children}
         </Box>
       </Container>

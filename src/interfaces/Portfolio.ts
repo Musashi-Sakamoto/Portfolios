@@ -1,11 +1,10 @@
+import User from './User';
+
 type Portfolio = {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  profession: string;
+  id: string;
   portfolioSite: string;
-  imageUrl: string;
+  siteImageUrl: string;
+  user: Partial<User>;
 };
 
 export default Portfolio;
