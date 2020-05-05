@@ -2,24 +2,27 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import useSWR from 'swr';
 import axios from 'axios';
-import { Portfolio } from '../interfaces/Portfolio';
 import { GetServerSideProps } from 'next';
+import PortfolioList, { PortfolioData } from '../components/PortfolioList/PortfolioList';
+import { Box } from '@material-ui/core';
 
 type IndexProps = {
-  portfolios: Portfolio[]
+  portfolios: PortfolioData[]
 }
 
 const IndexPage = ({ portfolios }: IndexProps) => {
   const { data } = useSWR('/portfolios', { initialData: portfolios});
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <pre>{JSON.stringify(data, null, 4)}</pre>
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
+      <Box width={800} marginRight='auto' marginLeft='auto'>
+        <h1>Hello Next.js 👋</h1>
+        <PortfolioList portfolios={data} />
+        <p>
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </p>
+      </Box>
     </Layout>
   )
 }
