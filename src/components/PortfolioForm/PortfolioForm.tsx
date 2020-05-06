@@ -12,9 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { array, object, string } from 'yup';
-import Work from '../../interfaces/Work';
-
-type WorkInput = Pick<Work, 'title' | 'siteUrl'>;
+import WorkItem, { WorkInput } from './WorkItem/WorkItem';
 
 export interface IProps {
   portfolioSite: string;
@@ -28,6 +26,17 @@ const initialValues: IProps = {
 
 export default function FormDemo() {
   const [works, setWorks] = useState<WorkInput[]>([]);
+
+  const onAddWork = (work: WorkInput) => {
+    const filteredWorks = works.filter(e => e.idx !== work.idx);
+    setWorks([...filteredWorks, work]);
+  };
+
+  const onCancel = (idx: number) => {
+    const filteredWorks = works.filter(e => e.idx !== idx);
+    setWorks([...filteredWorks]);
+  };
+
   return (
     <Card>
       <CardContent>
@@ -60,31 +69,36 @@ export default function FormDemo() {
               </Box>
 
               <Box marginBottom={2}>
-                <Fab color="secondary" aria-label="add" onClick={() => {
-                  const work: WorkInput = {
-                    siteUrl: '',
-                    title: '',
-                  };
-                  setWorks([...works, work]);
-                }}>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="add"
+                  onClick={() => {
+                    const work: WorkInput = {
+                      idx: works.length,
+                      siteUrl: '',
+                      title: '',
+                    };
+                    setWorks([...works, work]);
+                  }}
+                >
                   <AddIcon />
                 </Fab>
               </Box>
 
-              {works.map((_, i) => (
-                <div key={i}>{i}</div>
+              {works.map((work, i) => (
+                <Box key={i} marginBottom={2}>
+                  <WorkItem work={work} onAddWork={onAddWork} onCancel={onCancel} />
+                </Box>
               ))}
 
               <Button type="submit" disabled={isSubmitting || isValidating}>
                 Submit
               </Button>
-
-              <pre>{JSON.stringify(errors, null, 4)}</pre>
-              <pre>{JSON.stringify(values, null, 4)}</pre>
             </Form>
           )}
         </Formik>
       </CardContent>
-    </Card >
+    </Card>
   );
 }
