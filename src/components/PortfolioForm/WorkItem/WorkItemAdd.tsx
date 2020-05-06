@@ -12,15 +12,18 @@ const useStyles = makeStyles({
   },
 });
 
-export type WorkInput = Pick<Work, 'title' | 'siteUrl'> & { idx: number };
+export type WorkInput = Pick<Work, 'title' | 'siteUrl'>;
 
 type IProps = {
-  work: WorkInput;
-  onCancel: (idx: number) => void;
   onAddWork: (work: WorkInput) => void;
 };
 
-const WorkItem = ({ onCancel, onAddWork, work }: IProps) => {
+const initialValues: WorkInput = {
+  title: '',
+  siteUrl: '',
+};
+
+const WorkItemAdd = ({ onAddWork }: IProps) => {
   const classes = useStyles();
 
   return (
@@ -30,17 +33,17 @@ const WorkItem = ({ onCancel, onAddWork, work }: IProps) => {
           title: string().required().min(2).max(100),
           siteUrl: string().url().min(2).max(100),
         })}
-        initialValues={work}
+        initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
           console.log(values);
           onAddWork(values);
+          formikHelpers.resetForm();
         }}
       >
         {({ values, errors, isSubmitting, isValidating }) => (
           <>
             <Form>
               <CardContent>
-                <Field type="hidden" name="idx" />
                 <Box marginBottom={2}>
                   <FormGroup>
                     <Field name="title" as={TextField} label="title of your work" />
@@ -55,23 +58,16 @@ const WorkItem = ({ onCancel, onAddWork, work }: IProps) => {
                 </Box>
               </CardContent>
               <CardActions>
-                <Button size="small" type="submit" disabled={isSubmitting || isValidating}>
-                  Done
-                </Button>
                 <Button
-                  onClick={() => {
-                    console.log('onCancel', work.idx);
-                    onCancel(work.idx);
-                  }}
-                  size="small"
                   color="secondary"
+                  size="small"
+                  type="submit"
+                  disabled={isSubmitting || isValidating}
                 >
-                  Cancel
+                  Add
                 </Button>
               </CardActions>
             </Form>
-            <pre>{JSON.stringify(errors, null, 4)}</pre>
-            <pre>{JSON.stringify(values, null, 4)}</pre>
           </>
         )}
       </Formik>
@@ -79,4 +75,4 @@ const WorkItem = ({ onCancel, onAddWork, work }: IProps) => {
   );
 };
 
-export default WorkItem;
+export default WorkItemAdd;

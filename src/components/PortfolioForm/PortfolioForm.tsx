@@ -6,13 +6,11 @@ import {
   FormGroup,
   TextField,
   Typography,
-  Fab,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { array, object, string } from 'yup';
-import WorkItem, { WorkInput } from './WorkItem/WorkItem';
+import WorkItemAdd, { WorkInput } from './WorkItem/WorkItemAdd';
 
 export interface IProps {
   portfolioSite: string;
@@ -28,13 +26,7 @@ export default function FormDemo() {
   const [works, setWorks] = useState<WorkInput[]>([]);
 
   const onAddWork = (work: WorkInput) => {
-    const filteredWorks = works.filter(e => e.idx !== work.idx);
-    setWorks([...filteredWorks, work]);
-  };
-
-  const onCancel = (idx: number) => {
-    const filteredWorks = works.filter(e => e.idx !== idx);
-    setWorks([...filteredWorks]);
+    setWorks([...works, work]);
   };
 
   return (
@@ -69,28 +61,8 @@ export default function FormDemo() {
               </Box>
 
               <Box marginBottom={2}>
-                <Fab
-                  size="small"
-                  color="secondary"
-                  aria-label="add"
-                  onClick={() => {
-                    const work: WorkInput = {
-                      idx: works.length,
-                      siteUrl: '',
-                      title: '',
-                    };
-                    setWorks([...works, work]);
-                  }}
-                >
-                  <AddIcon />
-                </Fab>
+                <WorkItemAdd onAddWork={onAddWork} />
               </Box>
-
-              {works.map((work, i) => (
-                <Box key={i} marginBottom={2}>
-                  <WorkItem work={work} onAddWork={onAddWork} onCancel={onCancel} />
-                </Box>
-              ))}
 
               <Button type="submit" disabled={isSubmitting || isValidating}>
                 Submit
@@ -99,6 +71,7 @@ export default function FormDemo() {
           )}
         </Formik>
       </CardContent>
+      <pre>{JSON.stringify(works, null, 4)}</pre>
     </Card>
   );
 }
