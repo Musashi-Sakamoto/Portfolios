@@ -11,6 +11,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { array, object, string } from 'yup';
 import WorkItemAdd, { WorkInput } from './WorkItem/WorkItemAdd';
+import WorkItem from './WorkItem/WorkItem';
 
 export interface IProps {
   portfolioSite: string;
@@ -26,7 +27,13 @@ export default function FormDemo() {
   const [works, setWorks] = useState<WorkInput[]>([]);
 
   const onAddWork = (work: WorkInput) => {
+    if (works.findIndex(w => w.siteUrl === work.siteUrl) !== -1) return;
     setWorks([...works, work]);
+  };
+
+  const onClose = (siteUrl: string) => {
+    const filteredWorks = works.filter(work => work.siteUrl !== siteUrl);
+    setWorks([...filteredWorks]);
   };
 
   return (
@@ -36,7 +43,7 @@ export default function FormDemo() {
 
         <Formik
           validationSchema={object({
-            portfolioSite: string().required('Your name is mandatory!!!').min(2).max(100),
+            portfolioSite: string().required().min(2).max(100),
             works: array(string()),
           })}
           initialValues={initialValues}
@@ -63,6 +70,12 @@ export default function FormDemo() {
               <Box marginBottom={2}>
                 <WorkItemAdd onAddWork={onAddWork} />
               </Box>
+
+              {works.map((work, i) => (
+                <Box key={i} marginBottom={2}>
+                  <WorkItem work={work} onClose={onClose} />
+                </Box>
+              ))}
 
               <Button type="submit" disabled={isSubmitting || isValidating}>
                 Submit
