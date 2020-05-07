@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sampleUserData } from '../../../utils/sample-data';
+import { dbConnected } from '../../../middlewares/db';
 
-export default (_: NextApiRequest, res: NextApiResponse) => {
+export default dbConnected(async (_: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!Array.isArray(sampleUserData)) {
       throw new Error('Cannot find user data');
@@ -11,4 +12,4 @@ export default (_: NextApiRequest, res: NextApiResponse) => {
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message });
   }
-};
+});
