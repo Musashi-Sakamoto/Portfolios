@@ -1,7 +1,7 @@
 import Mongoose from 'mongoose';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-const DB_URL = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/game-of-thrones';
+const DB_URL = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/portfolio-demo';
 
 export const dbConnected = (fn: NextApiHandler) => async (
   req: NextApiRequest,
