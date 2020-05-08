@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { dbConnected } from '../../../middlewares/db';
+import { authenticated } from '../../../middlewares/authentication';
 import User from '../../../models/User';
 
-export default dbConnected(async (req: NextApiRequest, res: NextApiResponse) => {
+export default authenticated(dbConnected(async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
       const user = await (new User(req.body)).save();
@@ -18,4 +19,4 @@ export default dbConnected(async (req: NextApiRequest, res: NextApiResponse) => 
       res.status(500).json({ message: err.message });
     }
   }
-});
+}));
