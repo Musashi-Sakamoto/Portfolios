@@ -16,4 +16,4 @@ const UserSchema = new Schema({
   profession: { type: String, required: true },
 });
 
-export default Mongoose.model<IUser>('User', UserSchema);
+export default Mongoose.models.User || Mongoose.model<IUser>('User', UserSchema);
